@@ -1,0 +1,29 @@
+Date/Location: 1-09-2015, EN310
+Attendees: JL, AW, JM
+Start Time: 3:50
+End Time: 4:06
+
+Decisions
+=========
+* [List of decisions, such as what the team will do.]
+* [Ideally linked to a task or reference document]
+* [Decisions often require actions as well, i.e. update process document]
+
+• What tool(s) will be used to do the conversion, based on the
+report?
+  - http://converter.telerik.com/
+• What coding standard will be used for C#, based on the report?
+  - Swinburne code standards
+
+
+Actions
+=======
+* [This is the main list that we need]
+* [Each action has Target Date, Personal(s), action inc outcome]
+
+• 8/09, JL, AW, JM, Add documentation / Ensure code retains in functionality. (James first 10, Alistair first 8, Jake last 8)
+• 8/09, Add tutor account to team tools (github, wiki, toggle)
+• 8/09, JL, Convert and add code to repository
+• 8/09, JL, AW, JM, Get SwinGame code to build and run C# code
+• 8/09, JL, AW, JM, Converted and running code functionality needs to be checked to make sure it is the same as before (Validation). 
+• 8/09, JL, AW, JM, Look for and note missing features, bugs or extension ideas that have not been identified and documented.
