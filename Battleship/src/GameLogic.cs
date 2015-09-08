@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using SwinGameSDK;
 static class GameLogic
 {
 	public static void Main()
@@ -13,20 +14,20 @@ static class GameLogic
 		SwinGame.OpenGraphicsWindow("Battle Ships", 800, 600);
 
 		//Load Resources
-		LoadResources();
+		SwinGame.ProcessEvents();
 
-		SwinGame.PlayMusic(GameMusic("Background"));
-
+/*		LoadResources();
+*/
+		GameState CurrentState = new GameState ();
 		//Game Loop
-		do {
-			HandleUserInput();
-			DrawScreen();
-		} while (!(SwinGame.WindowCloseRequested() == true || CurrentState == GameState.Quitting));
-
-		SwinGame.StopMusic();
-
+		while(!(SwinGame.WindowCloseRequested() || !(CurrentState==GameState.Quitting)))
+		{
+			GameController.StartGame ();
+		}
+		
 		//Free Resources and Close Audio, to end the program.
-		FreeResources();
+		SwinGame.CloseAudio();
+		SwinGame.ReleaseAllResources();
 	}
 }
 

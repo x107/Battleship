@@ -12,7 +12,7 @@ using SwinGameSDK;
 /// managing user input, and displaying the current state of the
 /// game.
 /// </summary>
-public static class GameController
+public class GameController
 {
 
 	private static BattleShipsGame _theGame;
@@ -20,7 +20,7 @@ public static class GameController
 
 	private static AIPlayer _ai;
 
-	private static Stack<GameState> _state = new Stack<GameState>();
+	private static List<GameState> _state = new List<GameState>();
 
 	private static AIOption _aiSetting;
 	/// <summary>
@@ -30,7 +30,8 @@ public static class GameController
 	/// <value>The current state</value>
 	/// <returns>The current state</returns>
 	public static GameState CurrentState {
-		get { return _state.Peek(); }
+		get { return _state; }
+		set { _state = value; }
 	}
 
 	/// <summary>
@@ -46,7 +47,7 @@ public static class GameController
 	/// Returns the computer player.
 	/// </summary>
 	/// <value>the computer player</value>
-	/// <returns>the conputer player</returns>
+	/// <returns>the computer player</returns>
 	public static Player ComputerPlayer {
 		get { return _ai; }
 	}
@@ -54,6 +55,10 @@ public static class GameController
 	public GameController()
 	{
 		//bottom state will be quitting. If player exits main menu then the game is over
+		if(CurrentState==GameState.Deploying)
+		{
+			
+		}
 		_state.Push(GameState.Quitting);
 
 		//at the start the player is viewing the main menu
@@ -68,6 +73,8 @@ public static class GameController
 	/// </remarks>
 	public static void StartGame()
 	{
+
+		//End previous games
 		if (_theGame != null)
 			EndGame();
 
@@ -83,18 +90,19 @@ public static class GameController
 				_ai = new AIHardPlayer(_theGame);
 				break;
 			default:
-				_ai = new AIHardPlayer(_theGame);
+				_ai = new AIPlayer (_theGame);
 				break;
 		}
 
-		_human = new Player(_theGame);
+		_human = new Player (_theGame);
+		_ai = new Player (_theGame);
 
 		//AddHandler _human.PlayerGrid.Changed, AddressOf GridChanged
-		_ai.PlayerGrid.Changed += GridChanged;
-		_theGame.AttackCompleted += AttackCompleted;
-
+		GridChanged (_ai.PlayerGrid++);
+		GridChanged (_theGame.AttackCompleted++);
 		AddNewState(GameState.Deploying);
 	}
+
 
 	/// <summary>
 	/// Stops listening to the old game once a new game is started
@@ -103,8 +111,7 @@ public static class GameController
 	private static void EndGame()
 	{
 		//RemoveHandler _human.PlayerGrid.Changed, AddressOf GridChanged
-		_ai.PlayerGrid.Changed -= GridChanged;
-		_theGame.AttackCompleted -= AttackCompleted;
+		GridChanged(_human.PlayerGrid);
 	}
 
 	/// <summary>
@@ -361,11 +368,11 @@ public static class GameController
 	}
 
 	/// <summary>
-	/// Ends the current state, returning to the prior state
+	/// Ends the current state
 	/// </summary>
 	public static void EndCurrentState()
 	{
-		_state.Pop();
+		CurrentState = GameState.Quitting;
 	}
 
 	/// <summary>
