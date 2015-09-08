@@ -22,7 +22,7 @@ static class DiscoveryController
 	/// </remarks>
 	public static void HandleDiscoveryInput()
 	{
-		if (SwinGame.KeyTyped(KeyCode.VK_ESCAPE)) {
+		if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE)) {
 			AddNewState(GameState.ViewingGameMenu);
 		}
 
@@ -36,7 +36,7 @@ static class DiscoveryController
 	/// </summary>
 	private static void DoAttack()
 	{
-		Point2D mouse = default(Point2D);
+		Point2D mouse = new Point2D();
 
 		mouse = SwinGame.MousePosition();
 
@@ -63,7 +63,7 @@ static class DiscoveryController
 		const int HITS_TOP = 206;
 		const int SPLASH_TOP = 256;
 
-		if ((SwinGame.KeyDown(KeyCode.VK_LSHIFT) | SwinGame.KeyDown(KeyCode.VK_RSHIFT)) & SwinGame.KeyDown(KeyCode.VK_C)) {
+		if ((SwinGame.KeyDown(KeyCode.VK_LSHIFT) || SwinGame.KeyDown(KeyCode.VK_RSHIFT)) && SwinGame.KeyDown(KeyCode.VK_C)) {
 			DrawField(HumanPlayer.EnemyGrid, ComputerPlayer, true);
 		} else {
 			DrawField(HumanPlayer.EnemyGrid, ComputerPlayer, false);
@@ -78,10 +78,3 @@ static class DiscoveryController
 	}
 
 }
-
-//=======================================================
-//Service provided by Telerik (www.telerik.com)
-//Conversion powered by NRefactory.
-//Twitter: @telerik
-//Facebook: facebook.com/telerik
-//=======================================================
