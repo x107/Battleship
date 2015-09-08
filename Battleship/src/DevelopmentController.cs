@@ -1,4 +1,3 @@
-
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
@@ -47,18 +46,18 @@ static class DeploymentController
 	/// </remarks>
 	public static void HandleDeploymentInput()
 	{
-		if (SwinGame.KeyTyped(KeyCode.VK_ESCAPE)) {
-			AddNewState(GameState.ViewingGameMenu);
+		if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE)) {
+			GameState.ViewingGameMenu;
 		}
 
-		if (SwinGame.KeyTyped(KeyCode.VK_UP) | SwinGame.KeyTyped(KeyCode.VK_DOWN)) {
+		if (SwinGame.KeyTyped(KeyCode.vk_UP) | SwinGame.KeyTyped(KeyCode.vk_DOWN)) {
 			_currentDirection = Direction.UpDown;
 		}
-		if (SwinGame.KeyTyped(KeyCode.VK_LEFT) | SwinGame.KeyTyped(KeyCode.VK_RIGHT)) {
+		if (SwinGame.KeyTyped(KeyCode.vk_LEFT) | SwinGame.KeyTyped(KeyCode.vk_RIGHT)) {
 			_currentDirection = Direction.LeftRight;
 		}
 
-		if (SwinGame.KeyTyped(KeyCode.VK_R)) {
+		if (SwinGame.KeyTyped(KeyCode.vk_r)) {
 			HumanPlayer.RandomizeDeployment();
 		}
 
@@ -71,7 +70,7 @@ static class DeploymentController
 				DoDeployClick();
 			}
 
-			if (HumanPlayer.ReadyToDeploy & IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT)) {
+			if (HumanPlayer.ReadyToDeploy && IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT)) {
 				EndDeployment();
 			} else if (IsMouseInRectangle(UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT)) {
 				_currentDirection = Direction.LeftRight;
@@ -104,6 +103,7 @@ static class DeploymentController
 		col = Convert.ToInt32(Math.Floor((mouse.X - FIELD_LEFT) / (CELL_WIDTH + CELL_GAP)));
 
 		if (row >= 0 & row < HumanPlayer.PlayerGrid.Height) {
+			
 			if (col >= 0 & col < HumanPlayer.PlayerGrid.Width) {
 				//if in the area try to deploy
 				try {
