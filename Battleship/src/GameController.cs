@@ -291,7 +291,7 @@ public class GameController
 				HandleSetupMenuInput();
 				break;
 			case GameState.Deploying:
-				HandleDeploymentInput();
+				DeploymentController.HandleDeploymentInput();
 				break;
 			case GameState.Discovering:
 				HandleDiscoveryInput();

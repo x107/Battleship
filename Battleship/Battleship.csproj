@@ -216,5 +216,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
 </Project>
