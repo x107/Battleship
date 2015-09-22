@@ -3,16 +3,25 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
+//using System.Data;
 using System.Diagnostics;
 using SwinGameSDK;
+
+using static GameController;
+using static UtilityFunctions;
+using static GameResources;
+using static DeploymentController;
+using static DiscoveryController;
+using static EndingGameController;
+using static MenuController;
+using static HighScoreController;
 
 /// <summary>
 /// The GameController is responsible for controlling the game,
 /// managing user input, and displaying the current state of the
 /// game.
 /// </summary>
-public class GameController
+public static class GameController
 {
 
 	private static BattleShipsGame _theGame;
@@ -20,7 +29,7 @@ public class GameController
 
 	private static AIPlayer _ai;
 
-	private static List<GameState> _state = new List<GameState>();
+	private static Stack<GameState> _state = new Stack<GameState>();
 
 	private static AIOption _aiSetting;
 	/// <summary>
@@ -30,8 +39,7 @@ public class GameController
 	/// <value>The current state</value>
 	/// <returns>The current state</returns>
 	public static GameState CurrentState {
-		get { return _state; }
-		set { _state = value; }
+		get { return _state.Peek(); }
 	}
 
 	/// <summary>
@@ -47,18 +55,14 @@ public class GameController
 	/// Returns the computer player.
 	/// </summary>
 	/// <value>the computer player</value>
-	/// <returns>the computer player</returns>
+	/// <returns>the conputer player</returns>
 	public static Player ComputerPlayer {
 		get { return _ai; }
 	}
 
-	public GameController()
+	static GameController()
 	{
 		//bottom state will be quitting. If player exits main menu then the game is over
-		if(CurrentState==GameState.Deploying)
-		{
-			
-		}
 		_state.Push(GameState.Quitting);
 
 		//at the start the player is viewing the main menu
@@ -73,8 +77,6 @@ public class GameController
 	/// </remarks>
 	public static void StartGame()
 	{
-
-		//End previous games
 		if (_theGame != null)
 			EndGame();
 
@@ -90,19 +92,18 @@ public class GameController
 				_ai = new AIHardPlayer(_theGame);
 				break;
 			default:
-				_ai = new AIPlayer (_theGame);
+				_ai = new AIHardPlayer(_theGame);
 				break;
 		}
 
-		_human = new Player (_theGame);
-		_ai = new Player (_theGame);
+		_human = new Player(_theGame);
 
 		//AddHandler _human.PlayerGrid.Changed, AddressOf GridChanged
-		GridChanged (_ai.PlayerGrid++);
-		GridChanged (_theGame.AttackCompleted++);
+		_ai.PlayerGrid.Changed += GridChanged;
+		_theGame.AttackCompleted += AttackCompleted;
+
 		AddNewState(GameState.Deploying);
 	}
-
 
 	/// <summary>
 	/// Stops listening to the old game once a new game is started
@@ -111,7 +112,8 @@ public class GameController
 	private static void EndGame()
 	{
 		//RemoveHandler _human.PlayerGrid.Changed, AddressOf GridChanged
-		GridChanged(_human.PlayerGrid);
+		_ai.PlayerGrid.Changed -= GridChanged;
+		_theGame.AttackCompleted -= AttackCompleted;
 	}
 
 	/// <summary>
@@ -368,11 +370,11 @@ public class GameController
 	}
 
 	/// <summary>
-	/// Ends the current state
+	/// Ends the current state, returning to the prior state
 	/// </summary>
 	public static void EndCurrentState()
 	{
-		CurrentState = GameState.Quitting;
+		_state.Pop();
 	}
 
 	/// <summary>

@@ -3,9 +3,18 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
+//using System.Data;
 using System.Diagnostics;
 using SwinGameSDK;
+
+using static GameController;
+using static UtilityFunctions;
+using static GameResources;
+using static DeploymentController;
+using static DiscoveryController;
+using static EndingGameController;
+using static MenuController;
+using static HighScoreController;
 
 /// <summary>
 /// The battle phase is handled by the DiscoveryController.
@@ -36,7 +45,7 @@ static class DiscoveryController
 	/// </summary>
 	private static void DoAttack()
 	{
-		Point2D mouse = new Point2D();
+		Point2D mouse = default(Point2D);
 
 		mouse = SwinGame.MousePosition();
 
@@ -63,7 +72,7 @@ static class DiscoveryController
 		const int HITS_TOP = 206;
 		const int SPLASH_TOP = 256;
 
-		if ((SwinGame.KeyDown(KeyCode.VK_LSHIFT) || SwinGame.KeyDown(KeyCode.VK_RSHIFT)) && SwinGame.KeyDown(KeyCode.VK_C)) {
+		if ((SwinGame.KeyDown(KeyCode.vk_LSHIFT) | SwinGame.KeyDown(KeyCode.vk_RSHIFT)) & SwinGame.KeyDown(KeyCode.vk_c)) {
 			DrawField(HumanPlayer.EnemyGrid, ComputerPlayer, true);
 		} else {
 			DrawField(HumanPlayer.EnemyGrid, ComputerPlayer, false);
@@ -78,3 +87,10 @@ static class DiscoveryController
 	}
 
 }
+
+//=======================================================
+//Service provided by Telerik (www.telerik.com)
+//Conversion powered by NRefactory.
+//Twitter: @telerik
+//Facebook: facebook.com/telerik
+//=======================================================
