@@ -1,15 +1,26 @@
+
 using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
+//using System.Data;
 using System.Diagnostics;
-using Color = SwinGameSDK.Color;
 using SwinGameSDK;
+
+using static GameController;
+using static UtilityFunctions;
+using static GameResources;
+using static DeploymentController;
+using static DiscoveryController;
+using static EndingGameController;
+using static MenuController;
+using static HighScoreController;
+
 /// <summary>
 /// This includes a number of utility methods for
 /// drawing and interacting with the Mouse.
 /// </summary>
+
 static class UtilityFunctions
 {
 	public const int FIELD_TOP = 122;
@@ -25,7 +36,6 @@ static class UtilityFunctions
 	public const int CELL_GAP = 2;
 
 	public const int SHIP_GAP = 3;
-
 	private static readonly Color SMALL_SEA = SwinGame.RGBAColor(6, 60, 94, 255);
 	private static readonly Color SMALL_SHIP = Color.Gray;
 	private static readonly Color SMALL_MISS = SwinGame.RGBAColor(1, 147, 220, 255);
@@ -135,10 +145,10 @@ static class UtilityFunctions
 
 				draw = true;
 
-				switch (grid.Item(row, col)) {
-					case TileView.Ship:
-						draw = false;
-						break;
+				switch (grid[row, col]) {
+					//case TileView.Ship:
+					//	draw = false;
+					//	break;
 					//If small Then fillColor = _SMALL_SHIP Else fillColor = _LARGE_SHIP
 					case TileView.Miss:
 						if (small)
@@ -289,7 +299,7 @@ static class UtilityFunctions
 		List<Sprite> ended = new List<Sprite>();
 		foreach (Sprite s in _Animations) {
 			SwinGame.UpdateSprite(s);
-			if (s.animationHasEnded) {
+			if (s.AnimationHasEnded) {
 				ended.Add(s);
 			}
 		}

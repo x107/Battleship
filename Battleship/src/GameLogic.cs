@@ -3,9 +3,19 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
+//using System.Data;
 using System.Diagnostics;
 using SwinGameSDK;
+
+using static GameController;
+using static UtilityFunctions;
+using static GameResources;
+using static DeploymentController;
+using static DiscoveryController;
+using static EndingGameController;
+using static MenuController;
+using static HighScoreController;
+
 static class GameLogic
 {
 	public static void Main()
@@ -14,20 +24,20 @@ static class GameLogic
 		SwinGame.OpenGraphicsWindow("Battle Ships", 800, 600);
 
 		//Load Resources
-		SwinGame.ProcessEvents();
+		LoadResources();
 
-/*		LoadResources();
-*/
-		GameState CurrentState = new GameState ();
+		SwinGame.PlayMusic(GameMusic("Background"));
+
 		//Game Loop
-		while(!(SwinGame.WindowCloseRequested() || !(CurrentState==GameState.Quitting)))
-		{
-			GameController.StartGame ();
-		}
-		
+		do {
+			HandleUserInput();
+			DrawScreen();
+		} while (!(SwinGame.WindowCloseRequested() == true | CurrentState == GameState.Quitting));
+
+		SwinGame.StopMusic();
+
 		//Free Resources and Close Audio, to end the program.
-		SwinGame.CloseAudio();
-		SwinGame.ReleaseAllResources();
+		FreeResources();
 	}
 }
 
