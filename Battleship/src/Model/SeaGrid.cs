@@ -144,7 +144,7 @@ public class SeaGrid : ISeaGrid
 				}
 
 				_GameTiles[currentRow, currentCol].Ship = newShip;
-
+				
 				currentCol += dCol;
 				currentRow += dRow;
 			}
