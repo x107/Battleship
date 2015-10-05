@@ -20,6 +20,7 @@ using static HighScoreController;
 /// The DeploymentController controls the players actions
 /// during the deployment phase.
 /// </summary>
+
 static class DeploymentController
 {
 	private const int SHIPS_TOP = 98;
@@ -46,6 +47,7 @@ static class DeploymentController
 	private static Direction _currentDirection = Direction.UpDown;
 
 	private static ShipName _selectedShip = ShipName.Tug;
+
 	/// <summary>
 	/// Handles user input for the Deployment phase of the game.
 	/// </summary>
@@ -54,6 +56,7 @@ static class DeploymentController
 	/// of the ships to add, randomising deployment, end then ending
 	/// deployment
 	/// </remarks>
+
 	public static void HandleDeploymentInput()
 	{
 		if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE)) {
@@ -110,7 +113,7 @@ static class DeploymentController
 		//Calculate the row/col clicked
 		int row = 0;
 		int col = 0;
-		row = Convert.ToInt32(Math.Floor((mouse.Y) / (CELL_HEIGHT + CELL_GAP)));
+		row = Convert.ToInt32(Math.Floor((mouse.Y - FIELD_TOP) / (CELL_HEIGHT + CELL_GAP)));
 		col = Convert.ToInt32(Math.Floor((mouse.X - FIELD_LEFT) / (CELL_WIDTH + CELL_GAP)));
 
 		if (row >= 0 & row < HumanPlayer.PlayerGrid.Height) {
@@ -130,6 +133,7 @@ static class DeploymentController
 	/// Draws the deployment screen showing the field and the ships
 	/// that the player can deploy.
 	/// </summary>
+
 	public static void DrawDeployment()
 	{
 		DrawField(HumanPlayer.PlayerGrid, HumanPlayer, true);
@@ -178,6 +182,7 @@ static class DeploymentController
 	/// Gets the ship that the mouse is currently over in the selection panel.
 	/// </summary>
 	/// <returns>The ship selected or none</returns>
+
 	private static ShipName GetShipMouseIsOver()
 	{
 		foreach (ShipName sn in Enum.GetValues(typeof(ShipName))) {
