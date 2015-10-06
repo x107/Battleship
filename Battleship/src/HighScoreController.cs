@@ -107,7 +107,7 @@ static class HighScoreController
 	/// </remarks>
 	private static void SaveScores()
 	{
-		string filename = null;
+	    string filename = null;
 		filename = SwinGame.PathToResource("highscores.txt");
 
 		StreamWriter output = default(StreamWriter);
@@ -119,7 +119,7 @@ static class HighScoreController
 			output.WriteLine(s.Name + s.Value);
 		}
 
-		output.Close();
+		output.Close(); 
 	}
 
 	/// <summary>
@@ -131,7 +131,7 @@ static class HighScoreController
 		const int SCORES_TOP = 80;
 		const int SCORE_GAP = 30;
 
-		if (_Scores.Count == 0)
+		//if (_Scores.Count == 0)
 			LoadScores();
 
 		SwinGame.DrawText("   High Scores   ", Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
@@ -174,7 +174,7 @@ static class HighScoreController
 	{
 		const int ENTRY_TOP = 500;
 
-		if (_Scores.Count == 0)
+		//if (_Scores.Count == 0)
 			LoadScores();
 
 		//is it a high score
@@ -207,7 +207,7 @@ static class HighScoreController
 			_Scores.RemoveAt(_Scores.Count - 1);
 			_Scores.Add(s);
 			_Scores.Sort();
-			//SaveScores ();
+			SaveScores();
 
 			EndCurrentState();
 		}
