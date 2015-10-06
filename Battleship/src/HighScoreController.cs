@@ -142,7 +142,7 @@ static class HighScoreController
 			Score s = default(Score);
 
 			s = _Scores[i];
-
+			LoadScores ();
 			//for scores 1 - 9 use 01 - 09
 			if (i < 9) {
 				SwinGame.DrawText(" " + (i + 1) + ":   " + s.Name + "   " + s.Value, Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP);
@@ -209,10 +209,13 @@ static class HighScoreController
 			_Scores.RemoveAt(_Scores.Count - 1);
 			_Scores.Add(s);
 			_Scores.Sort();
-			//SaveScores ();
+
 
 			EndCurrentState();
 		}
+
+		SaveScores();
+
 	}
 }
 

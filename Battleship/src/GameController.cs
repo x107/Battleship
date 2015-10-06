@@ -303,7 +303,6 @@ public static class GameController
 				break;
 			case GameState.ViewingHighScores:
 				HandleHighScoreInput();
-				
 				break;
 		}
 
