@@ -131,7 +131,7 @@ static class HighScoreController
 		const int SCORES_TOP = 80;
 		const int SCORE_GAP = 30;
 
-		if (_Scores.Count == 0)
+		//if (_Scores.Count == 0)
 			LoadScores();
 
 		SwinGame.DrawText("   High Scores   ", Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
@@ -174,7 +174,7 @@ static class HighScoreController
 	{
 		const int ENTRY_TOP = 500;
 
-		if (_Scores.Count == 0)
+		//if (_Scores.Count == 0)
 			LoadScores();
 
 		//is it a high score
